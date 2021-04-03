@@ -6,7 +6,7 @@ Created on Sat Mar 27 12:08:42 2021
 """
 
 import scrapy
-from scrapybot.items import ScrapybotItem
+
 
 class SolutionSpider(scrapy.Spyder):
     name = "Solutions"
@@ -14,8 +14,13 @@ class SolutionSpider(scrapy.Spyder):
     
     medicos_urls = [
         
+        'https://200.48.13.39/cmp/php/listaxespecialidad.php?id=00008&key=17&des=CARDIOLOGIA',
         
-        
-        ]
+    ]
     
 
+    def parse(self, response):
+        page = response,url,split('/')[-2]
+        filename = 'books-%s.html' % page
+        with open(filename,"wb") as f:
+            f.write(response.body)
